@@ -1,0 +1,126 @@
+---
+import { siteConfig } from '../config/site';
+
+const currentYear = new Date().getFullYear();
+
+const footerServices = [
+  { name: 'Residential Tanks', href: '/services/#residential-water-tank-cleaning' },
+  { name: 'Commercial Tanks', href: '/services/#commercial-water-tank-cleaning' },
+  { name: 'Overhead Tanks', href: '/services/#overhead-tank-cleaning' },
+  { name: 'Underground Sumps', href: '/services/#underground-tank-cleaning' },
+  { name: 'Industrial Tanks', href: '/services/#industrial-tank-cleaning' },
+  { name: 'Sump & Sintex', href: '/services/#sump-sintex-tank-cleaning' },
+];
+---
+
+<footer class="bg-slate-950 text-slate-200 pt-16 pb-20 sm:pb-16 border-t border-slate-800">
+  <div class="container-custom">
+    <!-- Main Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-slate-800">
+      
+      <!-- Brand & Local Bio with Home Link -->
+      <div class="lg:col-span-4 space-y-4 text-left">
+        <a href="/" class="inline-block group focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 transition-transform hover:scale-105" aria-label="Vijaya Water Tank Cleaning Services Homepage">
+          <img
+            src="/images/logo-footer.png"
+            alt="Vijaya Water Tank Cleaning Services Logo"
+            class="h-20 sm:h-24 md:h-28 w-auto max-w-[320px] object-contain transition-transform duration-200 drop-shadow-xl"
+            width="340"
+            height="145"
+            loading="lazy"
+          />
+        </a>
+
+        <p class="text-sm text-slate-300 leading-relaxed font-normal">
+          Dedicated water tank, sump, and Sintex storage cleaning services in Champapet. We serve residential houses, apartments, commercial buildings, and industrial plants across Hyderabad.
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-2.5">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Business Hours: <strong class="text-white font-bold">{siteConfig.openingHours.display}</strong></span>
+          </div>
+
+          <a
+            href={siteConfig.phone.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600/20 border border-emerald-500/40 text-xs text-emerald-300 hover:text-white transition-colors"
+          >
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.718 5.864-1.538c1.701.927 3.652 1.458 5.727 1.458 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <span>WhatsApp Connected</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Navigation & Services in 2 perfectly balanced side-by-side columns -->
+      <div class="lg:col-span-5 grid grid-cols-2 gap-4 sm:gap-8 text-left">
+        <!-- Quick Navigation (6 items) -->
+        <div class="space-y-3">
+          <p class="text-sm font-bold text-white uppercase tracking-wider">Quick Links</p>
+          <ul class="space-y-2.5 text-sm">
+            {siteConfig.nav.map((item) => (
+              <li class="leading-snug">
+                <a href={item.href} class="text-slate-300 hover:text-sky-400 transition-colors font-medium inline-block py-0.5">
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Our 6 Services (6 items, 1 line each) -->
+        <div class="space-y-3">
+          <p class="text-sm font-bold text-white uppercase tracking-wider">Our Services</p>
+          <ul class="space-y-2.5 text-sm">
+            {footerServices.map((svc) => (
+              <li class="leading-snug">
+                <a href={svc.href} class="text-slate-300 hover:text-sky-400 transition-colors font-medium inline-block py-0.5">
+                  {svc.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact & Address -->
+      <div class="lg:col-span-3 space-y-3 text-left">
+        <p class="text-sm font-bold text-white uppercase tracking-wider">Champapet Location</p>
+        <address class="not-italic text-sm text-slate-300 space-y-2">
+          <p class="font-medium text-white">{siteConfig.address.street}</p>
+          <p>{siteConfig.address.locality}, {siteConfig.address.state} {siteConfig.address.postalCode}</p>
+          <p class="pt-2">
+            <strong class="text-slate-400 block text-xs uppercase">Call Helpline:</strong>
+            <a href={siteConfig.phone.tel} class="font-bold text-white hover:text-sky-400 transition-colors text-base block mt-0.5">
+              {siteConfig.phone.display}
+            </a>
+          </p>
+          <p>
+            <strong class="text-slate-400 block text-xs uppercase">Google Maps:</strong>
+            <a href={siteConfig.googleMaps.listingUrl} target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline text-xs inline-block mt-0.5">
+              View Verified Location Listing →
+            </a>
+          </p>
+        </address>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright & Legal Links (Center aligned on mobile) -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs text-slate-400 text-center sm:text-left">
+      <p class="text-center sm:text-left">© {currentYear} {siteConfig.name}. All rights reserved.</p>
+      <div class="flex items-center justify-center gap-3 sm:gap-4">
+        <a href="/privacy-policy/" class="text-slate-400 hover:text-sky-300 transition-colors underline-offset-4 hover:underline">
+          Privacy Policy
+        </a>
+        <span class="text-slate-700">•</span>
+        <a href="/terms/" class="text-slate-400 hover:text-sky-300 transition-colors underline-offset-4 hover:underline">
+          Terms & Conditions
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

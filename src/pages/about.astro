@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroInterior from '../components/HeroInterior.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { siteConfig } from '../config/site';
+
+const breadcrumbs = [
+  { name: 'About Us' }
+];
+
+const valuePillars = [
+  {
+    title: "Complete Silt & Sludge Removal",
+    description: "We extract settled silt, borewell sand, mud, and organic sludge from the floor and walls of overhead tanks and sumps.",
+    icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
+    color: "bg-sky-100 text-sky-700"
+  },
+  {
+    title: "Sump & Sintex Specialists",
+    description: "Expert cleaning methods tailored for HDPE plastic Sintex tanks, concrete overhead cisterns, and deep underground masonry sumps.",
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+    color: "bg-emerald-100 text-emerald-700"
+  },
+  {
+    title: "Open 24 Hours • Fast Scheduling",
+    description: "Call anytime to arrange your cleaning schedule when storage water levels are low, preventing household water waste.",
+    icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+    color: "bg-amber-100 text-amber-700"
+  },
+  {
+    title: "Local Champapet Hub",
+    description: "Direct local service from Harujanwada, Champapet across Hyderabad's southern residential and commercial sectors.",
+    icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+    color: "bg-teal-100 text-teal-700"
+  }
+];
+
+const steps = [
+  {
+    number: "01",
+    phase: "Phase 1: Booking & Assessment",
+    title: "1. Details & Booking",
+    description: "Share your tank type (overhead plastic, RCC concrete, underground sump) and capacity over phone or WhatsApp to confirm the quote and booking slot."
+  },
+  {
+    number: "02",
+    phase: "Phase 2: Deep Extraction",
+    title: "2. Dewatering & Scrubbing",
+    description: "We pump out standing water, extract dense bottom silt and mud sludge, and scrub internal tank walls to dislodge scaling and biofilm."
+  },
+  {
+    number: "03",
+    phase: "Phase 3: Clean Handover",
+    title: "3. Rinsing & Inspection",
+    description: "We rinse the tank thoroughly with clean fresh water, inspect corners and floor with portable lighting, and secure all covers tightly."
+  }
+];
+---
+
+<BaseLayout
+  title="About Vijaya Water Tank Cleaning Services"
+  description="Learn about Vijaya Water Tank Cleaning Services in Champapet, Telangana. Discover our company standards, why choose us, and our 3-step cleaning process."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Interior Hero with dark overlay, breadcrumbs, one H1, description, and exactly two CTAs -->
+  <HeroInterior
+    title='About <span class="text-[#00a6ff]">Vijaya Water Tank</span><br class="hidden sm:inline" /> Cleaning Services'
+    description="Providing professional water tank, sump tank, and underground water tank cleaning services for residential homes, commercial properties, and institutions in Champapet."
+    eyebrow="LOCAL & SAFE WATER SOLUTIONS"
+    breadcrumbs={breadcrumbs}
+    bgImage="/images/hero-about.webp"
+    bgImageAlt="Clean rooftop water storage tank and fresh water flow in Champapet"
+  />
+
+  <!-- 1. About Us Section with Narrative on Left & Related Picture on Right -->
+  <section class="py-16 sm:py-20 bg-white border-b border-slate-100">
+    <div class="container-custom text-left">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- Left Column: Editorial Content & 6 Services -->
+        <div class="lg:col-span-7 space-y-6">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider">
+            About Our Company
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Dedicated Water Storage Cleaning in Champapet
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+            <strong>Vijaya Water Tank Cleaning Services</strong> is a dedicated local service provider based in Harujanwada, Champapet, Telangana (PIN 500059). We specialize in physical dewatering, heavy silt extraction, surface scrubbing, and maintenance of domestic, commercial, and industrial water storage tanks.
+          </p>
+          <p class="text-base text-slate-600 leading-relaxed">
+            In Hyderabad's climate and urban water supply network, overhead plastic tanks and underground concrete sumps continually receive municipal water, borewell supply, and tanker loads carrying fine sand, silt, and dissolved mineral deposits. Over time, sediment settles at the floor, promoting biofilm and algae growth. Our team uses systematic extraction and scrubbing techniques to clean your water storage units safely and thoroughly.
+          </p>
+
+          <!-- Our 6 Services Grid -->
+          <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 my-6">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-3">Our 6 Core Service Offerings</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm text-slate-700">
+              {siteConfig.services.map((svc) => (
+                <div class="flex items-center gap-2">
+                  <span class="text-sky-600 font-bold">✓</span>
+                  <span class="font-medium">{svc.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p class="text-base text-slate-600 leading-relaxed">
+            Every property has unique plumbing setups, ladder access conditions, and tank capacities. When you contact our team, we discuss your tank capacity, rooftop or basement accessibility, electrical outlets for dewatering pumps, and drainage routes to ensure a smooth, mess-free service.
+          </p>
+        </div>
+
+        <!-- Right Column: Related Picture & Badge -->
+        <div class="lg:col-span-5">
+          <div class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-slate-900 aspect-[4/5] group">
+            <img
+              src="/images/services/overhead-tank.webp"
+              alt="Vijaya Water Tank Cleaning technician inspecting rooftop water storage tank in Champapet"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-6 left-6 right-6 text-white text-left">
+              <span class="inline-block text-xs font-bold text-sky-300 bg-sky-950/80 border border-sky-400/30 px-3 py-1.5 rounded-lg backdrop-blur-sm mb-2">
+                Local Service Hub
+              </span>
+              <p class="text-base font-bold text-white leading-snug">
+                Professional Water Storage & Sump Cleaning
+              </p>
+              <p class="text-xs text-slate-300 mt-1">
+                Serving Champapet & South Hyderabad
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Why Choose Us Section -->
+  <section class="py-16 sm:py-20 bg-slate-50 border-b border-slate-200/80">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3">
+          Our Value Pillars
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Why Choose Vijaya Water Tank Cleaning Services?
+        </h2>
+        <p class="text-base text-slate-600 mt-3 leading-relaxed">
+          We combine systematic dewatering, physical sludge extraction, and meticulous surface scrubbing to restore clean storage conditions.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+        {valuePillars.map((pillar) => (
+          <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-card hover:shadow-card-hover transition-all group flex flex-col justify-between">
+            <div>
+              <div class={`w-12 h-12 rounded-2xl ${pillar.color} flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-105 transition-transform`}>
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={pillar.icon} />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mb-2">{pillar.title}</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">{pillar.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Our 3-Step Process Section -->
+  <section class="py-16 sm:py-20 bg-white border-b border-slate-100">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3">
+          Our Standard Procedure
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Our 3-Step Cleaning Process
+        </h2>
+        <p class="text-base text-slate-600 mt-3 leading-relaxed">
+          How we systematically clean and restore water tanks and sumps across Champapet.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        {steps.map((step) => (
+          <div class="relative bg-slate-50 p-8 rounded-3xl border border-slate-200 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-sky-600 text-white font-extrabold text-2xl flex items-center justify-center mb-6 shadow-md shadow-sky-600/30">
+                {step.number}
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 mb-3">{step.title}</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                {step.description}
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-200 text-xs font-bold text-sky-600 uppercase tracking-wider">
+              {step.phase}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Closing Conversion CTA with the 2 CTAs (Call Now + WhatsApp) -->
+  <ClosingCta
+    title="Discuss Your Tank Cleaning with Vijaya"
+    description="Call our Champapet helpline or chat directly on WhatsApp with your tank specifications."
+  />
+</BaseLayout>

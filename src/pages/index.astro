@@ -1,0 +1,471 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import WhatsAppHeroForm from '../components/WhatsAppHeroForm.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import { siteConfig } from '../config/site';
+import { getCollection } from 'astro:content';
+
+// Fetch all 3 blog posts
+const blogPosts = await getCollection('blog');
+const sortedPosts = blogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Surrounding areas served from Champapet
+const serviceAreas = [
+  { name: 'Champapet (Hub)', type: 'Primary Base (PIN 500059)' },
+  { name: 'Santosh Nagar', type: 'Residential & Commercial' },
+  { name: 'Saidabad', type: 'Independent Houses & Apartments' },
+  { name: 'Saroornagar', type: 'Residential Tanks & Sumps' },
+  { name: 'Karmanghat', type: 'Villas & Standalone Tanks' },
+  { name: 'Malakpet', type: 'Commercial & Residential Units' },
+  { name: 'Chandrayangutta', type: 'Domestic & Commercial' },
+  { name: 'Dilsukhnagar / Kothapet', type: 'Apartments & Multi-tanks' },
+];
+---
+
+<BaseLayout
+  title="Water Tank Cleaning in Champapet | Vijaya"
+  description="Professional water tank, sump, and Sintex cleaning services in Champapet. Residential, Commercial, Overhead, Underground & Industrial cleaning. Call 082477 35114."
+>
+  <!-- 1. Hero Section: Left Content + Right WhatsApp Form -->
+  <section class="relative bg-slate-950 text-white overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-28 border-b border-sky-900/50">
+    <!-- Rooftop Sintex Water Tank Background Image with Balanced Contrast Overlay -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <img
+        src="/images/hero-home.jpg"
+        alt="Rooftop Sintex water tank cleaning setup in Champapet"
+        class="w-full h-full object-cover object-[75%_center] sm:object-center"
+        loading="eager"
+        decoding="async"
+      />
+      <!-- Smooth dark overlay for high contrast text readability on left side while keeping image clear -->
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/30"></div>
+    </div>
+
+    <div class="container-custom relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- LEFT SIDE: Headline, Reassurance & CTAs -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+          <!-- Location Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-200 text-xs sm:text-sm font-bold uppercase tracking-wider backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>WATER TANK CLEANING • CHAMPAPET</span>
+          </div>
+
+          <!-- Main H1 Headline (Two-Tone Styling) -->
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-white tracking-tight leading-[1.12] drop-shadow-lg">
+            Water Tank & Sump <span class="text-[#00a6ff]">Cleaning Services</span> in Champapet
+          </h1>
+
+          <!-- Descriptive Subtitle -->
+          <p class="text-sm sm:text-base text-white/90 leading-relaxed font-normal max-w-xl line-clamp-3 drop-shadow-md">
+            Ensure clean, hygienic domestic and commercial water. We provide complete silt and sludge extraction, high-pressure washing, and surface cleaning for Overhead Sintex Tanks, Concrete Sumps, Residential & Commercial setups.
+          </p>
+
+          <!-- Key Feature Trust Strip (Single-line items on mobile) -->
+          <div class="pt-2 border-t border-white/10 grid grid-cols-2 gap-x-3 gap-y-2 text-xs sm:text-sm text-slate-200">
+            <div class="flex items-center gap-1.5">
+              <span class="text-sky-400 font-bold shrink-0">✓</span>
+              <span class="truncate">Sump & Sintex Specialists</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-sky-400 font-bold shrink-0">✓</span>
+              <span class="truncate">Complete Silt Extraction</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-sky-400 font-bold shrink-0">✓</span>
+              <span class="truncate">Open 24 Hours</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-sky-400 font-bold shrink-0">✓</span>
+              <span class="truncate">Hyderabad (500059)</span>
+            </div>
+          </div>
+
+          <!-- CTAs: Call Now + WhatsApp in 1 Row on Mobile -->
+          <div class="grid grid-cols-2 gap-2.5 sm:gap-4 sm:flex sm:flex-wrap sm:items-center pt-3">
+            <a
+              href={siteConfig.phone.tel}
+              class="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 bg-sky-600 hover:bg-sky-500 active:bg-sky-700 text-white font-bold text-xs sm:text-base py-3.5 px-3 sm:px-7 rounded-xl shadow-lg shadow-sky-600/30 transition-all duration-150 transform hover:-translate-y-0.5 text-center"
+            >
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+              </svg>
+              <span class="truncate">Call: {siteConfig.phone.display}</span>
+            </a>
+
+            <a
+              href={siteConfig.phone.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold text-xs sm:text-base py-3.5 px-3 sm:px-6 rounded-xl shadow-lg shadow-emerald-600/30 transition-all duration-150 transform hover:-translate-y-0.5 text-center"
+            >
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.718 5.864-1.538c1.701.927 3.652 1.458 5.727 1.458 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              <span class="truncate">Chat on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE: Minimal Instant WhatsApp Form -->
+        <div class="lg:col-span-5">
+          <WhatsAppHeroForm />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Why Choose Us Section -->
+  <section class="py-16 sm:py-20 bg-white border-b border-slate-100">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3">
+          Our Service Standards
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Why Choose Vijaya Water Tank Cleaning Services?
+        </h2>
+        <p class="text-base text-slate-600 mt-3 leading-relaxed">
+          We combine systematic dewatering, physical sludge extraction, and meticulous surface scrubbing to restore clean storage conditions.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Pillar 1 -->
+        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 hover:shadow-card transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Complete Sludge & Silt Removal</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            We extract settled silt, sand, mud, and algae from the floor and walls of overhead tanks and sumps.
+          </p>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 hover:shadow-card transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Sump & Sintex Specialists</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Expert handling for plastic Sintex tanks, concrete overhead cisterns, underground sumps, and commercial tanks.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 hover:shadow-card transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">24 Hours Fast Scheduling</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Call anytime to plan your cleaning schedule when storage water is low, avoiding household water waste.
+          </p>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 hover:shadow-card transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-xl mb-4 group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Local Champapet Hub</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Direct local service from Harujanwada, Champapet across Hyderabad's southern residential & commercial sectors.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. The 6 Actual Services Section -->
+  <section class="py-16 sm:py-20 bg-slate-50 border-b border-slate-200/80">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="max-w-2xl text-left">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3">
+            Our Cleaning Services
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Complete Water Tank Cleaning Solutions
+          </h2>
+          <p class="text-base text-slate-600 mt-2 leading-relaxed">
+            Professional services for residential homes, housing communities, commercial complexes, and industrial plants.
+          </p>
+        </div>
+        <a
+          href="/services/"
+          class="inline-flex items-center gap-2 font-bold text-sky-600 hover:text-sky-700 transition-colors text-sm"
+        >
+          <span>View All Service Details</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- 6 Services Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {siteConfig.services.map((service) => (
+          <ServiceCard service={service} showAnchorLink={true} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Our 3-Step Cleaning Process -->
+  <section class="py-16 sm:py-20 bg-white border-b border-slate-100">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3">
+          Clear 3-Step Process
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          How Our Cleaning Service Works
+        </h2>
+        <p class="text-base text-slate-600 mt-3 leading-relaxed">
+          A systematic, hygienic approach designed to deliver thorough tank cleaning with minimal water outage.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="relative bg-slate-50 p-8 rounded-3xl border border-slate-200 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow text-left">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-sky-600 text-white font-extrabold text-2xl flex items-center justify-center mb-6 shadow-md shadow-sky-600/30">
+              01
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Share Details & Schedule</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Call us or submit your tank details via WhatsApp. We confirm your tank capacity, structure type, and set a convenient service time.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200 text-xs font-bold text-sky-600 uppercase tracking-wider">
+            Step 1: Booking & Assessment
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative bg-slate-50 p-8 rounded-3xl border border-slate-200 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow text-left">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-sky-600 text-white font-extrabold text-2xl flex items-center justify-center mb-6 shadow-md shadow-sky-600/30">
+              02
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Dewatering & Silt Scrubbing</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              We pump out standing water, extract dense bottom silt and mud sludge, and scrub internal tank walls and floors thoroughly.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200 text-xs font-bold text-sky-600 uppercase tracking-wider">
+            Step 2: Deep Cleaning & Extraction
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative bg-slate-50 p-8 rounded-3xl border border-slate-200 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow text-left">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-sky-600 text-white font-extrabold text-2xl flex items-center justify-center mb-6 shadow-md shadow-sky-600/30">
+              03
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Clean Rinsing & Inspection</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              The reservoir is flushed with clean fresh water, verified for cleanliness, and the tank lids are firmly secured to prevent contamination.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200 text-xs font-bold text-sky-600 uppercase tracking-wider">
+            Step 3: Quality Check & Handover
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Testimonials Section -->
+  <TestimonialsSection />
+
+  <!-- 6. Areas We Serve Section -->
+  <section class="py-16 sm:py-20 bg-white border-b border-slate-100">
+    <div class="container-custom">
+      <div class="max-w-3xl mb-12 text-left">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3">
+          Local Coverage
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Areas We Serve from Champapet
+        </h2>
+        <p class="text-base text-slate-600 mt-2 leading-relaxed">
+          Operating from our central location in Harujanwada, Champapet (PIN 500059), we provide timely water tank and underground sump cleaning across surrounding Hyderabad localities.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {serviceAreas.map((area) => (
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-sky-300 hover:bg-sky-50/50 transition-all text-left">
+            <div class="flex items-start gap-2.5 mb-1.5">
+              <svg class="w-4 h-4 text-sky-600 shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+              </svg>
+              <h3 class="font-extrabold text-slate-900 text-base leading-snug break-words">{area.name}</h3>
+            </div>
+            <p class="text-xs text-slate-500 pl-6.5 leading-relaxed">{area.type}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 p-5 rounded-2xl bg-sky-50 border border-sky-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
+        <div>
+          <p class="font-bold text-slate-900 text-sm">Need Service in Another Nearby Area?</p>
+          <p class="text-xs text-slate-600">Call <strong>082477 35114</strong> to check same-day or next-day cleaning availability for your locality.</p>
+        </div>
+        <a
+          href={siteConfig.phone.tel}
+          class="shrink-0 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+        >
+          Check Area Availability
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Representative Image Gallery Preview (EXACTLY 3 CARDS) -->
+  <section class="py-16 sm:py-20 bg-slate-50 border-b border-slate-200/80">
+    <div class="container-custom">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 text-left">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-2">
+            Gallery Preview
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Representative Tank & Sump Setups
+          </h2>
+        </div>
+        <a
+          href="/gallery/"
+          class="inline-flex items-center gap-1.5 font-bold text-sky-600 hover:text-slate-900 transition-colors text-sm"
+        >
+          <span>View Full Gallery (6 Images)</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Exactly 3 Gallery Cards -->
+      <GalleryGrid limit={3} />
+    </div>
+  </section>
+
+  <!-- 8. Blog & Knowledge Guides (All 3 Articles) -->
+  <section class="py-16 sm:py-20 bg-white border-b border-slate-100">
+    <div class="container-custom">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 text-left">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-2">
+            Helpful Guides
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Water Tank Cleaning Advice & Tips
+          </h2>
+        </div>
+        <a
+          href="/blog/"
+          class="inline-flex items-center gap-1.5 font-bold text-sky-600 hover:text-slate-900 transition-colors text-sm"
+        >
+          <span>View All 3 Guides</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {sortedPosts.map((post) => (
+          <BlogCard post={post} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Frequently Asked Questions -->
+  <section class="py-16 sm:py-20 bg-slate-50 border-b border-slate-200/80">
+    <div class="container-custom">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3">
+          FAQ
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 mt-2">
+          Practical answers on tank capacity, access, preparation, and booking.
+        </p>
+      </div>
+
+      <FaqAccordion />
+    </div>
+  </section>
+
+  <!-- 10. Pre-Footer High-Impact Conversion Banner (No Form, Pure CTAs) -->
+  <section class="py-16 sm:py-20 bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 text-white">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 text-xs font-bold uppercase tracking-wider">
+          Direct Customer Helpline
+        </span>
+
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          Ready to Schedule Your Water Tank Cleaning in Champapet?
+        </h2>
+
+        <p class="text-base sm:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed">
+          Call our 24-hour helpline or chat directly on WhatsApp to share your tank capacity and confirm your preferred appointment slot.
+        </p>
+
+        <!-- Two Prominent Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <!-- Call Direct -->
+          <a
+            href={siteConfig.phone.tel}
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-sky-600 hover:bg-sky-500 text-white font-bold text-base px-8 py-4 rounded-xl shadow-lg shadow-sky-600/30 transition-all transform hover:-translate-y-0.5"
+          >
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+            </svg>
+            <span>Call {siteConfig.phone.display}</span>
+          </a>
+
+          <!-- WhatsApp Chat Direct -->
+          <a
+            href={siteConfig.phone.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-base px-8 py-4 rounded-xl shadow-lg shadow-emerald-600/30 transition-all transform hover:-translate-y-0.5"
+          >
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.718 5.864-1.538c1.701.927 3.652 1.458 5.727 1.458 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>

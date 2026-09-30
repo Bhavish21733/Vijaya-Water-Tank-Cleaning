@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#102B3F"/>
+  <!-- Stylized water tank + clean droplet mark -->
+  <path d="M16 26C16 22 20 18 32 18C44 18 48 22 48 26V46C48 49 44 51 32 51C20 51 16 49 16 46V26Z" stroke="#087F8C" stroke-width="3.5" fill="#0E2131" stroke-linejoin="round"/>
+  <ellipse cx="32" cy="26" rx="16" ry="6" stroke="#087F8C" stroke-width="3.5" fill="#102B3F"/>
+  <path d="M16 35C16 38 23.16 40 32 40C40.84 40 48 38 48 35" stroke="#32B3BD" stroke-width="2.5" stroke-dasharray="2 2"/>
+  <!-- Pure water droplet in warm amber / teal accent -->
+  <path d="M32 28C32 28 37 34 37 37C37 39.76 34.76 42 32 42C29.24 42 27 39.76 27 37C27 34 32 28 32 28Z" fill="#D97706"/>
+</svg>

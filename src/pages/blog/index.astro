@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroInterior from '../../components/HeroInterior.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import ClosingCta from '../../components/ClosingCta.astro';
+import { getCollection } from 'astro:content';
+
+const breadcrumbs = [
+  { name: 'Blog' }
+];
+
+// Fetch exactly the 3 blog posts
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Water Tank Cleaning Guides | Vijaya"
+  description="Read practical guides on water tank maintenance, sediment signs, sump cleaning considerations, and appointment preparation from Vijaya in Champapet."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Interior Hero with dark overlay, breadcrumbs, one H1, description, and exactly two CTAs -->
+  <HeroInterior
+    title='Water Storage &<br class="hidden sm:inline" /> <span class="text-[#00a6ff]">Cleaning Guides</span>'
+    description="Practical advice, maintenance tips, and preparation guides for property owners managing overhead tanks and underground sumps in Champapet."
+    eyebrow="LOCAL & SAFE WATER SOLUTIONS"
+    breadcrumbs={breadcrumbs}
+    bgImage="/images/hero-about.webp"
+    bgImageAlt="Clean water storage and tank maintenance knowledge guides"
+  />
+
+  <!-- Main Blog Grid: Exactly 3 Guides Directly Below Hero -->
+  <section class="py-14 sm:py-20 bg-white">
+    <div class="container-custom">
+      <div class="max-w-2xl mb-10 text-left">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-2">
+          Practical Guides
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          All Water Tank Maintenance Articles
+        </h2>
+        <p class="text-base text-slate-600 mt-2 leading-relaxed">
+          Clear, honest information to help you identify maintenance needs, understand structural differences, and prepare for your cleaning appointment.
+        </p>
+      </div>
+
+      <!-- Exactly 3 Article Cards Grid with full touch redirect -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-left">
+        {sortedPosts.map((post) => (
+          <BlogCard post={post} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing Conversion CTA -->
+  <ClosingCta
+    title="Have Questions About Your Water Storage Tank?"
+    description="Call our Champapet team directly to discuss your tank condition and schedule a cleaning visit."
+  />
+</BaseLayout>

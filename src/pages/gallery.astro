@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroInterior from '../components/HeroInterior.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import { siteConfig } from '../config/site';
+
+const breadcrumbs = [
+  { name: 'Gallery' }
+];
+---
+
+<BaseLayout
+  title="Water Tank Cleaning Gallery | Vijaya"
+  description="View representative imagery of overhead storage tanks, underground sumps, residential setups, and building water reservoirs in Champapet."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Interior Hero with dark overlay, breadcrumbs, one H1, description, and exactly two CTAs -->
+  <HeroInterior
+    title='Water Storage &<br class="hidden sm:inline" /> <span class="text-[#00a6ff]">Cleaning Gallery</span>'
+    description="Browse representative photographs of rooftop storage tanks, underground sump chambers, residential installations, and apartment reservoir systems across Champapet."
+    eyebrow="LOCAL & SAFE WATER SOLUTIONS"
+    breadcrumbs={breadcrumbs}
+    bgImage="/images/hero-about.webp"
+    bgImageAlt="Water tank inspection and maintenance gallery preview in Champapet"
+  />
+
+  <!-- 1. Main Gallery Grid Section (All 6 Images in Full View) -->
+  <section class="py-16 sm:py-20 bg-white border-b border-slate-100">
+    <div class="container-custom">
+      <div class="max-w-3xl mb-12 text-left">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3">
+          Cleaning Environments
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Representative Tank & Sump Configurations
+        </h2>
+        <p class="text-base text-slate-600 mt-3 leading-relaxed">
+          The gallery below showcases the 6 primary storage tank and sump structures we service across Champapet. Click any photograph to open the interactive high-resolution viewer.
+        </p>
+      </div>
+
+      <!-- Gallery Grid Component (Open 3-Column Grid with Lightbox) -->
+      <GalleryGrid showIntro={false} layout="grid" />
+    </div>
+  </section>
+
+  <!-- 2. Direct WhatsApp Photo Assessment Banner -->
+  <section class="py-14 bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white">
+    <div class="container-custom">
+      <div class="p-8 sm:p-10 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col lg:flex-row items-center justify-between gap-8 text-left">
+        <div class="max-w-2xl">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-3">
+            Quick WhatsApp Assessment
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+            Have a photo of your tank or sump setup?
+          </h3>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+            Send a photo or short video of your rooftop tank or underground sump directly to our WhatsApp number. We will evaluate the access condition and provide a fast, transparent quote.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0">
+          <a
+            href={siteConfig.phone.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-6 py-4 rounded-xl shadow-lg shadow-emerald-600/30 transition-colors"
+          >
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.202.043.073.043.419-.101.824z" />
+            </svg>
+            <span>Send Photos on WhatsApp</span>
+          </a>
+
+          <a
+            href={siteConfig.phone.tel}
+            class="inline-flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm px-6 py-4 rounded-xl shadow-lg shadow-sky-600/30 transition-colors"
+          >
+            <span>Call {siteConfig.phone.display}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

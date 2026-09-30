@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you/
+Disallow: /404/
+
+Sitemap: https://vijayawatertankcleaning.com/sitemap-index.xml

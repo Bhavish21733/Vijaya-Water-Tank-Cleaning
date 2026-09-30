@@ -1,0 +1,181 @@
+---
+import { siteConfig } from '../config/site';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const isActive = (href: string) => {
+  if (href === '/') {
+    return currentPath === '/' || currentPath === '';
+  }
+  return currentPath.startsWith(href);
+};
+---
+
+<header id="main-header" class="sticky top-0 z-50 w-full bg-white border-b border-slate-200 shadow-sm">
+  <!-- Main Navigation Bar (Clean solid white background, high contrast) -->
+  <div class="container-custom">
+    <div class="flex items-center justify-between h-20 sm:h-24 py-2">
+      <!-- Official Brand Logo with Home Link -->
+      <a href="/" class="group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-xl p-1" aria-label="Vijaya Water Tank Cleaning Services Homepage">
+        <img
+          src="/images/logo.png"
+          alt="Vijaya Water Tank Cleaning Services Logo"
+          class="h-14 sm:h-16 md:h-20 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+          width="280"
+          height="95"
+          loading="eager"
+        />
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2" aria-label="Main Navigation">
+        {siteConfig.nav.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <a
+              href={item.href}
+              class={`px-3.5 py-2 rounded-xl text-sm font-bold transition-colors ${
+                active
+                  ? 'bg-sky-50 text-sky-700 ring-1 ring-sky-200'
+                  : 'text-slate-700 hover:text-sky-600 hover:bg-slate-50'
+              }`}
+              aria-current={active ? 'page' : undefined}
+            >
+              {item.name}
+            </a>
+          );
+        })}
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- WhatsApp Button -->
+        <a
+          href={siteConfig.phone.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden lg:inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-sm transition-all"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.718 5.864-1.538c1.701.927 3.652 1.458 5.727 1.458 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          <span>WhatsApp</span>
+        </a>
+
+        <!-- Call Button -->
+        <a
+          href={siteConfig.phone.tel}
+          class="hidden sm:inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm px-4 py-2.5 rounded-xl shadow-md shadow-sky-600/20 transition-all"
+        >
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+          </svg>
+          <span>Call Now</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button
+          type="button"
+          id="mobile-menu-button"
+          class="md:hidden inline-flex items-center justify-center p-2.5 rounded-xl text-slate-800 hover:text-slate-950 hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 transition-colors"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          aria-label="Toggle navigation menu"
+        >
+          <svg class="w-6 h-6" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="w-6 h-6 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu (Solid White Background, High Contrast) -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden fixed inset-x-0 top-20 sm:top-24 bottom-0 bg-white z-50 overflow-y-auto border-t border-slate-200 shadow-2xl"
+    aria-label="Mobile Navigation Menu"
+  >
+    <div class="container-custom py-6 flex flex-col gap-2">
+      {siteConfig.nav.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <a
+            href={item.href}
+            class={`px-4 py-3.5 rounded-2xl text-base font-extrabold flex items-center justify-between transition-colors ${
+              active
+                ? 'bg-sky-50 text-sky-700 ring-1 ring-sky-200 shadow-sm'
+                : 'text-slate-900 hover:bg-slate-50 hover:text-sky-600'
+            }`}
+            aria-current={active ? 'page' : undefined}
+          >
+            <span>{item.name}</span>
+            <svg class={`w-4 h-4 ${active ? 'text-sky-600' : 'text-slate-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        );
+      })}
+
+      <div class="pt-6 mt-4 border-t border-slate-200 flex flex-col gap-3">
+        <a
+          href={siteConfig.phone.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-4 rounded-xl shadow-md text-base transition-colors"
+        >
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.184 1.564 5.938l-1.564 5.718 5.864-1.538c1.701.927 3.652 1.458 5.727 1.458 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          <span>Chat on WhatsApp</span>
+        </a>
+
+        <a
+          href={siteConfig.phone.tel}
+          class="w-full flex items-center justify-center gap-2.5 bg-sky-600 hover:bg-sky-500 text-white font-bold py-4 px-4 rounded-xl shadow-md text-base transition-colors"
+        >
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+          </svg>
+          <span>Call {siteConfig.phone.display}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  if (menuButton && mobileMenu && iconOpen && iconClose) {
+    menuButton.addEventListener('click', () => {
+      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!isExpanded));
+      mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+      document.body.style.overflow = !isExpanded ? 'hidden' : '';
+    });
+
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        menuButton.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>

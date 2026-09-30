@@ -1,0 +1,207 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroInterior from '../../components/HeroInterior.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import ClosingCta from '../../components/ClosingCta.astro';
+import { siteConfig } from '../../config/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+
+// Breadcrumbs
+const breadcrumbs = [
+  { name: 'Blog', href: '/blog/' },
+  { name: post.data.title }
+];
+
+// Fetch other related posts (the other 2 articles)
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts.filter((p) => p.slug !== post.slug);
+
+const formattedDate = new Intl.DateTimeFormat('en-IN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(post.data.pubDate);
+
+// Two-tone title formatting
+const titleWords = post.data.title.split(' ');
+const lastTwo = titleWords.slice(-2).join(' ');
+const firstPart = titleWords.slice(0, -2).join(' ');
+const twoToneTitle = `${firstPart} <span class="text-[#00a6ff]">${lastTwo}</span>`;
+---
+
+<BaseLayout
+  title={post.data.metaTitle || `${post.data.title} | ${siteConfig.shortName}`}
+  description={post.data.description}
+  ogType="article"
+  ogImage={post.data.heroImage}
+  breadcrumbs={breadcrumbs}
+  articleData={{
+    headline: post.data.title,
+    pubDate: post.data.pubDate,
+    updatedDate: post.data.updatedDate,
+    image: post.data.heroImage,
+  }}
+>
+  <!-- Interior Hero with background image, dark overlay, breadcrumbs, single H1, and EXACTLY TWO CTAs -->
+  <HeroInterior
+    title={twoToneTitle}
+    description={post.data.description}
+    eyebrow="LOCAL & SAFE WATER SOLUTIONS"
+    breadcrumbs={breadcrumbs}
+    bgImage="/images/hero-about.webp"
+    bgImageAlt={post.data.heroImageAlt}
+  />
+
+  <!-- Article Meta Bar -->
+  <div class="bg-white border-b border-slate-200/80 py-3.5">
+    <div class="container-custom flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-slate-600">
+      <div class="flex items-center gap-3">
+        <span class="font-bold text-slate-900">Published by {siteConfig.name}</span>
+        <span>•</span>
+        <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 font-bold text-xs border border-sky-200">
+          {post.data.readingTime}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article Content & Sidebar -->
+  <section class="py-12 sm:py-16 bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Main Article Content Body -->
+        <article class="lg:col-span-8 text-left">
+          
+          <!-- Compact Table of Contents if headings exist -->
+          {headings && headings.length > 0 && (
+            <div class="mb-10 p-6 rounded-3xl bg-slate-50 border border-slate-200">
+              <p class="font-extrabold text-slate-900 text-xs uppercase tracking-wider mb-3">
+                Article Outline
+              </p>
+              <ul class="space-y-2 text-sm">
+                {headings.filter(h => h.depth <= 2).map((heading) => (
+                  <li>
+                    <a
+                      href={`#${heading.slug}`}
+                      class="text-sky-600 hover:text-sky-800 transition-colors flex items-center gap-2 font-medium"
+                    >
+                      <span class="text-sky-400">›</span>
+                      <span>{heading.text}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- Rendered Markdown Body with Custom Styling -->
+          <div class="prose-custom max-w-none text-slate-700">
+            <Content />
+          </div>
+
+          <!-- In-Article Service Callout Box -->
+          <div class="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 text-white border border-slate-800 shadow-xl">
+            <h3 class="text-xl sm:text-2xl font-extrabold text-white mb-2">Need Professional Tank Cleaning in Champapet?</h3>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+              Vijaya Water Tank Cleaning Services handles overhead tanks, underground sumps, residential setups, and commercial properties across Champapet. Contact our team to discuss your capacity, site access, and schedule a cleaning visit.
+            </p>
+            <div class="flex flex-wrap items-center gap-4">
+              <a
+                href={siteConfig.phone.tel}
+                class="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-sky-600/30 transition-colors"
+              >
+                <span>Call {siteConfig.phone.display}</span>
+              </a>
+              <a
+                href={siteConfig.phone.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-emerald-600/30 transition-colors"
+              >
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Right Sticky Sidebar -->
+        <aside class="lg:col-span-4 space-y-6 text-left">
+          <!-- Quick Call Card -->
+          <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-card space-y-4">
+            <h3 class="font-extrabold text-slate-900 text-base">Speak to Our Local Team</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              We are based in Harujanwada, Champapet, and open 24 hours to assist with your water storage needs.
+            </p>
+            <div class="p-3.5 bg-white rounded-2xl border border-slate-200">
+              <span class="text-[11px] font-bold text-sky-700 uppercase tracking-wider block">Direct Phone</span>
+              <a href={siteConfig.phone.tel} class="font-extrabold text-slate-900 text-lg hover:text-sky-600">
+                {siteConfig.phone.display}
+              </a>
+            </div>
+            <a
+              href={siteConfig.phone.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3.5 px-4 rounded-xl transition-colors shadow-sm"
+            >
+              <span>WhatsApp Quick Chat</span>
+            </a>
+          </div>
+
+          <!-- Services Quick Links -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-card space-y-3">
+            <h4 class="font-extrabold text-slate-900 text-xs uppercase tracking-wider">Our 6 Core Services</h4>
+            <ul class="space-y-2 text-xs">
+              {siteConfig.services.map((svc) => (
+                <li>
+                  <a href={`/services/#${svc.id}`} class="text-slate-600 hover:text-sky-600 flex items-center justify-between py-1 transition-colors font-medium">
+                    <span>{svc.title}</span>
+                    <span class="text-slate-400">›</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Articles Section -->
+  <section class="py-16 bg-slate-50 border-t border-slate-200/80">
+    <div class="container-custom">
+      <div class="max-w-2xl mb-8 text-left">
+        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">
+          Related Water Storage Guides
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+        {relatedPosts.map((rPost) => (
+          <BlogCard post={rPost} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing Conversion CTA -->
+  <ClosingCta
+    title="Ready to Schedule Your Tank Cleaning?"
+    description="Contact Vijaya Water Tank Cleaning Services today for reliable maintenance in Champapet."
+  />
+</BaseLayout>

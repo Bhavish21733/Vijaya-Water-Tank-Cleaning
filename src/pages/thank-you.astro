@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+const breadcrumbs = [
+  { name: 'Enquiry Received' }
+];
+---
+
+<BaseLayout
+  title="Enquiry Received | Vijaya Water Tank Cleaning"
+  description="Thank you for your enquiry. We have received your water tank cleaning details."
+  noindex={true}
+  breadcrumbs={breadcrumbs}
+>
+  <section class="py-16 sm:py-24 bg-white flex items-center justify-center min-h-[65vh]">
+    <div class="container-custom max-w-2xl">
+      <div class="bg-brand-offwhite rounded-3xl p-8 sm:p-12 border border-brand-navy-100 shadow-card text-center space-y-6">
+        
+        <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto shadow-sm">
+          <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+
+        <div class="space-y-2">
+          <span class="inline-block px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold uppercase tracking-wider border border-emerald-200">
+            Form Submitted Successfully
+          </span>
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight">
+            Thank You for Your Enquiry
+          </h1>
+          <p class="text-sm sm:text-base text-brand-muted leading-relaxed max-w-lg mx-auto">
+            We have received your water tank specifications and location details. Our team will review your request and contact you to discuss scope and scheduling.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 text-left space-y-3">
+          <p class="text-xs uppercase font-bold text-brand-teal tracking-wider">What Happens Next:</p>
+          <ul class="space-y-2 text-xs sm:text-sm text-brand-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 font-bold shrink-0">1.</span>
+              <span>We review your tank type, approximate capacity, and Champapet locality.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 font-bold shrink-0">2.</span>
+              <span>We contact you by phone to confirm access, water scheduling, and quote estimate.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 font-bold shrink-0">3.</span>
+              <span>An appointment window is finalized based on your preferred timing.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-teal hover:bg-brand-teal-600 text-white font-bold text-sm px-6 py-3 rounded-xl transition-colors shadow"
+          >
+            <span>Return to Homepage</span>
+          </a>
+
+          <a
+            href={siteConfig.phone.tel}
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-brand-navy-900 text-white font-bold text-sm px-6 py-3 rounded-xl transition-colors"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+            </svg>
+            <span>Call Directly: {siteConfig.phone.display}</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>

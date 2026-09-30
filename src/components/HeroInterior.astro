@@ -1,0 +1,92 @@
+---
+import Breadcrumbs, { type Crumb } from './Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+  breadcrumbs: Crumb[];
+  bgImage?: string;
+  bgImageAlt?: string;
+  eyebrow?: string;
+  isContactPage?: boolean;
+}
+
+const {
+  title,
+  description,
+  breadcrumbs,
+  bgImage = '/images/hero-about.webp',
+  bgImageAlt = 'Water tank cleaning service background in Champapet',
+  eyebrow,
+  isContactPage = false,
+} = Astro.props;
+
+const quoteHref = isContactPage ? '#enquiry' : '/contact/#enquiry';
+---
+
+<section class="relative bg-slate-950 text-white overflow-hidden pt-10 pb-14 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24 border-b border-sky-900/50 min-h-[340px] sm:min-h-[420px] lg:min-h-[460px] flex items-center">
+  <!-- Full-Vibrancy Background Image with Responsive Contrast Gradients -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <img
+      src={bgImage}
+      alt={bgImageAlt}
+      class="w-full h-full object-cover object-[75%_center] sm:object-center"
+      loading="eager"
+      decoding="async"
+    />
+    <!-- Mobile & Tablet text readability overlay -->
+    <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/30 sm:from-slate-950/75 sm:via-slate-950/30 sm:to-transparent lg:from-slate-950/40 lg:via-transparent lg:to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20"></div>
+  </div>
+
+  <div class="container-custom relative z-10 w-full px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl lg:max-w-2xl text-left">
+
+      <!-- Eyebrow Badge with Location Pin -->
+      {eyebrow && (
+        <div class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-slate-950/70 border border-sky-400/40 text-sky-200 text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-3 sm:mb-4 backdrop-blur-md shadow-sm">
+          <svg class="w-3.5 h-3.5 text-sky-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+          </svg>
+          <span>{eyebrow}</span>
+        </div>
+      )}
+
+      <!-- Bold Two-Tone H1 Headline structured across 2 lines -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-white tracking-tight leading-[1.12] mb-3 sm:mb-4 drop-shadow-md text-left">
+        <Fragment set:html={title} />
+      </h1>
+
+      <!-- Clean 2-3 Line Description -->
+      <p class="text-sm sm:text-base text-slate-100/95 leading-relaxed mb-6 sm:mb-8 max-w-xl font-normal drop-shadow text-left">
+        {description}
+      </p>
+
+      <!-- EXACTLY TWO CTA BUTTONS IN HERO: Left Aligned on Mobile and Desktop -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+        <!-- CTA 1: Primary Electric Blue Call Now Button -->
+        <a
+          href={siteConfig.phone.tel}
+          class="inline-flex items-center justify-center gap-2.5 bg-[#0099e6] hover:bg-[#0088cc] active:bg-[#0077b5] text-white font-bold text-sm sm:text-base px-6 sm:px-7 py-3.5 rounded-xl shadow-lg shadow-sky-500/30 transition-all duration-150 transform hover:-translate-y-0.5"
+        >
+          <svg class="w-4 h-4 text-white shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+          </svg>
+          <span>Call: {siteConfig.phone.display}</span>
+        </a>
+
+        <!-- CTA 2: Translucent Outline Request a Quote Button -->
+        <a
+          href={quoteHref}
+          class="inline-flex items-center justify-center gap-2 bg-slate-950/50 hover:bg-slate-950/70 active:bg-slate-900 text-white font-semibold text-sm sm:text-base px-6 py-3.5 rounded-xl border border-white/25 backdrop-blur-md transition-all duration-150 transform hover:-translate-y-0.5"
+        >
+          <span>Request a Quote</span>
+          <svg class="w-4 h-4 text-sky-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

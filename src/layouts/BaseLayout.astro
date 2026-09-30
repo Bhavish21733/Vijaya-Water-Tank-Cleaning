@@ -1,0 +1,209 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileActionBar from '../components/MobileActionBar.astro';
+import ScrollPopupModal from '../components/ScrollPopupModal.astro';
+import PageLoader from '../components/PageLoader.astro';
+import { siteConfig } from '../config/site';
+import '../styles/global.css';
+
+interface BreadcrumbItem {
+  name: string;
+  href?: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  breadcrumbs?: BreadcrumbItem[];
+  articleData?: {
+    pubDate: Date;
+    updatedDate?: Date;
+    headline: string;
+    image: string;
+  };
+}
+
+const {
+  title = `${siteConfig.tagline} | ${siteConfig.shortName}`,
+  description = siteConfig.description,
+  canonicalUrl = new URL(Astro.url.pathname, siteConfig.siteUrl).href,
+  ogImage = new URL(siteConfig.social.ogImage, siteConfig.siteUrl).href,
+  ogType = 'website',
+  noindex = false,
+  breadcrumbs,
+  articleData,
+} = Astro.props;
+
+// Stable entity ID for LocalBusiness JSON-LD
+const businessEntityId = `${siteConfig.siteUrl}/#business`;
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': businessEntityId,
+  name: siteConfig.name,
+  legalName: siteConfig.legalName,
+  url: siteConfig.siteUrl,
+  telephone: siteConfig.phone.raw,
+  image: new URL('/images/services/overhead-tank.webp', siteConfig.siteUrl).href,
+  priceRange: '₹₹',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.address.street,
+    addressLocality: siteConfig.address.locality,
+    addressRegion: siteConfig.address.state,
+    postalCode: siteConfig.address.postalCode,
+    addressCountry: siteConfig.address.country,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ],
+      opens: '00:00',
+      closes: '23:59',
+    },
+  ],
+};
+
+// BreadcrumbList schema
+let breadcrumbSchema = null;
+if (breadcrumbs && breadcrumbs.length > 0) {
+  breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteConfig.siteUrl,
+      },
+      ...breadcrumbs.map((crumb, idx) => ({
+        '@type': 'ListItem',
+        position: idx + 2,
+        name: crumb.name,
+        item: crumb.href ? new URL(crumb.href, siteConfig.siteUrl).href : undefined,
+      })),
+    ],
+  };
+}
+
+// BlogPosting schema
+let articleSchema = null;
+if (articleData) {
+  articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: articleData.headline,
+    description: description,
+    image: [new URL(articleData.image, siteConfig.siteUrl).href],
+    datePublished: articleData.pubDate.toISOString(),
+    dateModified: articleData.updatedDate ? articleData.updatedDate.toISOString() : articleData.pubDate.toISOString(),
+    publisher: {
+      '@type': 'LocalBusiness',
+      '@id': businessEntityId,
+      name: siteConfig.name,
+      url: siteConfig.siteUrl,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+  };
+}
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Metadata -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <meta name="theme-color" content="#102B3F" />
+
+    <!-- Preconnect & Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    {breadcrumbSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
+    {articleSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    )}
+  </head>
+  <body class="bg-brand-offwhite text-brand-charcoal antialiased min-h-screen flex flex-col has-mobile-action-bar">
+    <!-- Website Water Tank Page Loader Animation -->
+    <PageLoader />
+
+    <!-- Accessible Skip to Content -->
+    <a href="#main-content" class="skip-to-content">
+      Skip to main content
+    </a>
+
+    <!-- Sticky Header -->
+    <Header />
+
+    <!-- Main Content Route -->
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Site Footer -->
+    <Footer />
+
+    <!-- Mobile Bottom Action Bar (visible on mobile screens) -->
+    <MobileActionBar />
+
+    <!-- 30% Scroll Lead Popup Modal -->
+    <ScrollPopupModal />
+  </body>
+</html>
